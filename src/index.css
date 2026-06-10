@@ -1,0 +1,124 @@
+/* =========================================================================
+   INTERLY — Design Tokens
+   ========================================================================= */
+
+:root {
+  --font-display: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Bricolage Grotesque", "Geist", sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --t-12: 0.75rem;
+  --t-14: 0.875rem;
+  --t-16: 1rem;
+  --t-20: 1.25rem;
+  --t-24: 1.5rem;
+  --t-32: 2rem;
+  --t-48: 3rem;
+  --t-64: 4rem;
+
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-full: 999px;
+
+  --accent: #306BF7;
+  --accent-fg: #FFFFFF;
+  --accent-soft: color-mix(in oklch, var(--accent) 12%, transparent);
+  --accent-ring: color-mix(in oklch, var(--accent) 35%, transparent);
+  --brand-2: #18C18A;
+  --brand-2-soft: color-mix(in oklch, var(--brand-2) 14%, transparent);
+  --brand-grad: linear-gradient(118deg, var(--accent) 0%, var(--brand-2) 100%);
+  --brand-glow: radial-gradient(60% 60% at 30% 20%, color-mix(in oklch, var(--accent) 22%, transparent), transparent 70%), radial-gradient(55% 55% at 80% 35%, color-mix(in oklch, var(--brand-2) 20%, transparent), transparent 70%);
+
+  --cat-tech: #4F7CFF;
+  --cat-soft: #E2698F;
+  --cat-lang: #16B8A6;
+  --cat-creative: #9168F0;
+  --cat-business: #E0A23C;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.42s;
+}
+
+:root, [data-theme="light"] {
+  --bg: #FAFAF7;
+  --surface: #FFFFFF;
+  --surface-2: #F3F3EE;
+  --surface-hover: #F7F7F3;
+  --text: #0F0F0F;
+  --text-2: #6B6B6B;
+  --text-3: #9C9C96;
+  --border: #E8E8E3;
+  --border-strong: #DADAD3;
+  --shadow-sm: 0 1px 2px rgba(15,15,15,0.04);
+  --shadow-md: 0 6px 24px -8px rgba(15,15,15,0.10);
+  --shadow-lg: 0 18px 48px -16px rgba(15,15,15,0.16);
+  --scrim: rgba(20,20,18,0.42);
+}
+
+[data-theme="dark"] {
+  --bg: #0A0A0A;
+  --surface: #141414;
+  --surface-2: #1C1C1C;
+  --surface-hover: #1F1F1F;
+  --text: #F5F5F5;
+  --text-2: #A0A0A0;
+  --text-3: #6E6E6E;
+  --border: #262626;
+  --border-strong: #333333;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 8px 28px -10px rgba(0,0,0,0.6);
+  --shadow-lg: 0 22px 56px -18px rgba(0,0,0,0.7);
+  --scrim: rgba(0,0,0,0.62);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  width: auto;
+  max-width: none;
+  text-align: initial;
+  border-inline: none;
+  display: block;
+}
+
+body {
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+::selection { background: var(--accent-ring); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-track { background: transparent; }
+
+.mono { font-family: var(--font-mono); }
+.serif { font-family: var(--font-serif); }
+.tnum { font-variant-numeric: tabular-nums; }
+
+input::placeholder { color: var(--text-3); }
+button { font-family: var(--font-display); }
+
+@media (max-width: 760px) {
+  .skill-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 960px) and (min-width: 761px) {
+  .skill-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
