@@ -68,9 +68,38 @@ export const EXPERIENCES = [
   },
 ];
 
-// — Profils pour le showcase de la landing —
-export const DISCOVER = [
-  { name: "Diego Ferraro", handle: "diego", role: "Brand Designer", loc: "Lisbonne", flag: "🇵🇹", hue: 18,  skills: ["Brand", "Type", "Art Direction"], cat: "creative", validations: 86 },
-  { name: "Sanne de Vries", handle: "sanne", role: "Product Manager", loc: "Amsterdam", flag: "🇳🇱", hue: 168, skills: ["Strategy", "Research", "Analytics"], cat: "business", validations: 142 },
-  { name: "Yuki Tanaka", handle: "yuki", role: "iOS Engineer", loc: "Tokyo", flag: "🇯🇵", hue: 268, skills: ["Swift", "SwiftUI", "Motion"], cat: "tech", validations: 203 },
+// — Domaines de compétences mis en avant sur la landing —
+export const SKILL_DOMAINS = [
+  {
+    id: "design", name: "Design & Graphisme", icon: "palette", color: "var(--cat-creative)",
+    items: ["UI / UX Design", "Branding & Identité", "Illustration", "Motion Design", "Design System", "3D"],
+  },
+  {
+    id: "dev", name: "Développement", icon: "code", color: "var(--cat-tech)",
+    items: ["Front-end", "Back-end", "Mobile", "DevOps", "No-code", "Web3"],
+  },
+  {
+    id: "entrepreneuriat", name: "Entrepreneuriat", icon: "rocket", color: "var(--cat-business)",
+    items: ["Création de startup", "Business model", "Levée de fonds", "Gestion d'équipe", "Pitch"],
+  },
+  {
+    id: "marketing", name: "Marketing & Growth", icon: "megaphone", color: "var(--cat-soft)",
+    items: ["SEO", "Content", "Social media", "Growth hacking", "Paid ads", "Email"],
+  },
+  {
+    id: "produit", name: "Produit & Stratégie", icon: "chart", color: "var(--cat-business)",
+    items: ["Product Management", "User Research", "Roadmap", "Analytics", "Stratégie"],
+  },
+  {
+    id: "data", name: "Data & IA", icon: "cpu", color: "var(--cat-tech)",
+    items: ["Data Science", "Machine Learning", "Prompt engineering", "Analyse", "SQL"],
+  },
+  {
+    id: "audiovisuel", name: "Audiovisuel", icon: "camera", color: "var(--cat-creative)",
+    items: ["Vidéo", "Photographie", "Montage", "Son", "Réalisation"],
+  },
+  {
+    id: "langues", name: "Langues & Communication", icon: "globe", color: "var(--cat-lang)",
+    items: ["Anglais", "Espagnol", "Mandarin", "Prise de parole", "Rédaction", "+40 langues"],
+  },
 ];
