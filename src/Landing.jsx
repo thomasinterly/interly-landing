@@ -6,16 +6,25 @@ import { PROFILE, SKILLS, SKILL_DOMAINS } from "./data";
 import { Avatar, Button, Chip, Icon, Logo } from "./components/Primitives";
 import { SkillBlock } from "./components/Cards";
 import { Header, Footer } from "./components/Layout";
+import { joinWaitlist } from "./supabase";
 
 export default function Landing({ onNav, onToast }) {
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
+  const [loading, setLoading] = useState(false);
   const emailRef = useRef(null);
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    if (!email.includes("@")) return;
-    setJoined(true);
-    onToast && onToast("Tu es sur la liste ✦");
+    if (!email.includes("@") || loading || joined) return;
+    setLoading(true);
+    const res = await joinWaitlist(email);
+    setLoading(false);
+    if (res.ok) {
+      setJoined(true);
+      onToast && onToast(res.duplicate ? "Tu es déjà sur la liste ✦" : "Tu es sur la liste ✦");
+    } else {
+      onToast && onToast(res.error || "Une erreur est survenue, réessaie.");
+    }
   };
 
   const goWaitlist = () => {
@@ -49,11 +58,13 @@ export default function Landing({ onNav, onToast }) {
           <form onSubmit={submit} style={{ display: "flex", gap: 9, maxWidth: 440, margin: "32px auto 0", flexWrap: "wrap", justifyContent: "center" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <div style={{ display: "flex", alignItems: "center", padding: "11px 16px", borderRadius: "var(--r-sm)", background: "var(--surface)", border: "1px solid var(--border-strong)" }}>
-                <input ref={emailRef} value={email} onChange={e => setEmail(e.target.value)} placeholder="ton@email.com" type="email"
+                <input ref={emailRef} value={email} onChange={e => setEmail(e.target.value)} placeholder="ton@email.com" type="email" disabled={joined}
                   style={{ flex: 1, border: "none", outline: "none", background: "transparent", fontSize: "var(--t-16)", color: "var(--text)", fontFamily: "var(--font-body)" }} />
               </div>
             </div>
-            <Button size="lg" type="submit" icon={joined ? "check" : null}>{joined ? "Inscrit" : "Rejoindre la waitlist"}</Button>
+            <Button size="lg" type="submit" icon={joined ? "check" : null} disabled={loading || joined}>
+              {joined ? "Inscrit" : loading ? "…" : "Rejoindre la waitlist"}
+            </Button>
           </form>
           <div className="mono" style={{ fontSize: "var(--t-12)", color: "var(--text-3)", marginTop: 14 }}>+2 840 profils déjà créés · sans CV, sans diplôme requis</div>
         </div>
