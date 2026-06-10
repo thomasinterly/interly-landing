@@ -1,7 +1,7 @@
 /* =========================================================================
    INTERLY — Landing page
    ========================================================================= */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { PROFILE, SKILLS, SKILL_DOMAINS } from "./data";
 import { Avatar, Button, Chip, Icon, Logo } from "./components/Primitives";
 import { SkillBlock } from "./components/Cards";
@@ -10,6 +10,7 @@ import { Header, Footer } from "./components/Layout";
 export default function Landing({ onNav, onToast }) {
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
+  const emailRef = useRef(null);
   const submit = (e) => {
     e.preventDefault();
     if (!email.includes("@")) return;
@@ -17,7 +18,10 @@ export default function Landing({ onNav, onToast }) {
     onToast && onToast("Tu es sur la liste ✦");
   };
 
-  const goProfile = () => onNav && onNav("profile");
+  const goWaitlist = () => {
+    emailRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => emailRef.current?.focus(), 500);
+  };
 
   return (
     <div>
@@ -45,7 +49,7 @@ export default function Landing({ onNav, onToast }) {
           <form onSubmit={submit} style={{ display: "flex", gap: 9, maxWidth: 440, margin: "32px auto 0", flexWrap: "wrap", justifyContent: "center" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <div style={{ display: "flex", alignItems: "center", padding: "11px 16px", borderRadius: "var(--r-sm)", background: "var(--surface)", border: "1px solid var(--border-strong)" }}>
-                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="ton@email.com" type="email"
+                <input ref={emailRef} value={email} onChange={e => setEmail(e.target.value)} placeholder="ton@email.com" type="email"
                   style={{ flex: 1, border: "none", outline: "none", background: "transparent", fontSize: "var(--t-16)", color: "var(--text)", fontFamily: "var(--font-body)" }} />
               </div>
             </div>
@@ -57,7 +61,7 @@ export default function Landing({ onNav, onToast }) {
 
       {/* APERÇU PROFIL (showcase) */}
       <section style={{ maxWidth: 1000, margin: "16px auto 0", padding: "0 24px" }}>
-        <div onClick={goProfile} style={{
+        <div onClick={goWaitlist} style={{
           position: "relative", borderRadius: "var(--r-xl)", border: "1px solid var(--border)",
           background: "var(--surface)", overflow: "hidden", cursor: "pointer",
           boxShadow: "var(--shadow-lg)",
@@ -132,7 +136,7 @@ export default function Landing({ onNav, onToast }) {
           <div style={{ position: "relative" }}>
             <h2 className="serif" style={{ margin: 0, fontSize: "var(--t-48)", fontWeight: 400, lineHeight: 1.05 }}>Ton profil mérite mieux qu'un CV.</h2>
             <p style={{ margin: "16px auto 28px", maxWidth: 420, fontSize: "var(--t-16)", opacity: 0.78, lineHeight: 1.5 }}>Crée le tien en 3 minutes. Gratuit, et beau à partager.</p>
-            <Button size="lg" variant="primary" onClick={goProfile} style={{ background: "var(--brand-grad)", boxShadow: "0 10px 30px -8px color-mix(in oklch, var(--accent) 60%, transparent)" }}>Créer mon profil</Button>
+            <Button size="lg" variant="primary" onClick={goWaitlist} style={{ background: "var(--brand-grad)", boxShadow: "0 10px 30px -8px color-mix(in oklch, var(--accent) 60%, transparent)" }}>Créer mon profil</Button>
           </div>
         </div>
       </section>
